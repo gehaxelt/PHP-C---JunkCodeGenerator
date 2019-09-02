@@ -133,6 +133,8 @@ class JunkCodeFunction extends JunkCodeRandom{
 	public function getFunctionCode() {
 		$functionCode='';
 		
+		//$functionCode.="\n\n#pragma optimize( \"\", off )\n\n";
+		
 		//local variables
 		for($i=count($this->classFunctionVariables);$i>0;$i--)
 			$functionCode.=$this->classFunctionVariables[$i]->getVariableInitiation()."\n";
@@ -207,6 +209,9 @@ class JunkCodeFunction extends JunkCodeRandom{
 			
 		}
 		$functionCode.=$retstring;
+		
+		//$functionCode.="\n\n#pragma optimize( \"\", on )\n\n";
+		
 		$functionCode.="\n";
 		return $functionCode;
 	}

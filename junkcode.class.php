@@ -134,14 +134,17 @@ class JunkCodeClass extends JunkCodeRandom {
 		//loop through all three kinds of functions and append their code to the classCode
 		foreach(array("private","protected","public") as $classFunctionsIndex) {
 			for($i=count($this->classFunctions[$classFunctionsIndex]);$i>0;$i--)
-			{
+			{	
+				
 				$classCode.=$this->classFunctions[$classFunctionsIndex][$i]->getFunctionRetType()." ".$this->className."::".$this->classFunctions[$classFunctionsIndex][$i]->getFunctionName()."(".$this->classFunctions[$classFunctionsIndex][$i]->getFunctionArgsAsString().") {"."\n";
 				$classCode.=$this->classFunctions[$classFunctionsIndex][$i]->getFunctionCode();
-				$classCode.="}\n\n";
+				$classCode.="}\n\n";	
+
 			}
 		}
 		
 		//Constructor code
+		$classCode.="\n\n#pragma optimize( \"\", off )\n\n";
 		$classCode.=$this->className."::".$this->className."() {\n";
 		
 		foreach(array("public","protected","private") as $classIndexKey) {
@@ -188,6 +191,8 @@ class JunkCodeClass extends JunkCodeRandom {
 		
 		$classCode.="}\n\n";
 		
+		$classCode.="\n\n#pragma optimize( \"\", on )\n\n";
+
 		return $classCode;
 }
 	

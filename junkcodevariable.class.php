@@ -8,10 +8,10 @@ class JunkCodeVariable extends JunkCodeRandom {
 	private $classVariableType='';
 	private $classVariableValue='';
 	
-	const INT = 'int';
-	const DOUBLE = 'double';
-	const BOOL = 'bool';
-	const STRING = 'string';
+	const INT = 'volatile int';
+	const DOUBLE = 'volatile double';
+	const BOOL = 'volatile bool';
+	const STRING = 'volatile string';
 	
 	public function __construct() {
 		
