@@ -172,7 +172,7 @@ class JunkCodeFunction extends JunkCodeRandom{
 				$functionCode.='if (string('.$this->classFunctionVariables[$randVar]->getVariableValue().') '.$condition.' string('.$this->classFunctionVariables[$randVar]->getVariableValue().')) {'."\n";
 			
 			} else { //variabletype is not a string
-				$functionCode.='if ((int)'.$this->classFunctionVariables[$randVar]->getVariableValue().' '.$condition.' (int)'.$this->classFunctionVariables[$randVar]->getVariableValue().') {'."\n";	
+				$functionCode.='if ('.$this->classFunctionVariables[$randVar]->getVariableValue().' '.$condition.' '.$this->classFunctionVariables[$randVar]->getVariableValue().') {'."\n";	
 			}
 			
 			$forloopvar= $this->randomString($this->randomInteger(2, 10));
