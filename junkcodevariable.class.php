@@ -86,7 +86,7 @@ class JunkCodeVariable extends JunkCodeRandom {
 	}
 	
 	public function getVariablePrototype() {
-		return $this->getVariableType()." ".$this->getVariableName().";";//." = ".$this->getVariableValue().";";
+		return $this->getVariableType()." ".$this->getVariableName()."{};";
 	}
 	
 	public function getVariableInitiation() {

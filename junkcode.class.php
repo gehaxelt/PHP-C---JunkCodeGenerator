@@ -96,6 +96,7 @@ class JunkCodeClass extends JunkCodeRandom {
 		
 		$headerCode.='using namespace '.$this->classNameSpace.";\n\n";
 		
+		$headerCode.="volatile int global_increment;\n\n";
 		$headerCode.='class '.$this->className.' {'."\n";
 		
 		foreach(array("public","protected","private") as $classFunctionsIndex) {

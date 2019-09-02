@@ -154,7 +154,7 @@ class JunkCodeFunction extends JunkCodeRandom{
 						$condition='==';
 					break;
 				case 1:
-						$condition='!=';
+						$condition='==';
 						break;
 							// case 2:
 						// $condition='<=';
@@ -172,14 +172,14 @@ class JunkCodeFunction extends JunkCodeRandom{
 				$functionCode.='if (string('.$this->classFunctionVariables[$randVar]->getVariableValue().') '.$condition.' string('.$this->classFunctionVariables[$randVar]->getVariableValue().')) {'."\n";
 			
 			} else { //variabletype is not a string
-				$functionCode.='if ((int)'.$this->classFunctionVariables[$randVar]->getVariableValue().' '.$condition.' (int)'.$this->classFunctionVariables[$randVar2]->getVariableValue().') {'."\n";	
+				$functionCode.='if ((int)'.$this->classFunctionVariables[$randVar]->getVariableValue().' '.$condition.' (int)'.$this->classFunctionVariables[$randVar]->getVariableValue().') {'."\n";	
 			}
 			
 			$forloopvar= $this->randomString($this->randomInteger(2, 10));
 			
 			$functionCode.='volatile int '.$forloopvar.';'."\n";
 			$functionCode.='for ('.$forloopvar.'='.$this->randomInteger(0, 100).'; '.$forloopvar.' > 0; '.$forloopvar.'--) {'."\n";
-				//$functionCode.='continue;';
+				$functionCode.='global_increment++;';
 			$functionCode.="\n} \n";
 			
 			$functionCode.="}\n";
