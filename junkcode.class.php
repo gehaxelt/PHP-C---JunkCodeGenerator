@@ -96,6 +96,7 @@ class JunkCodeClass extends JunkCodeRandom {
 		
 		$headerCode.='using namespace '.$this->classNameSpace.";\n\n";
 		
+		$headerCode.="volatile int global_increment;\n\n";
 		$headerCode.='class '.$this->className.' {'."\n";
 		
 		foreach(array("public","protected","private") as $classFunctionsIndex) {
@@ -134,14 +135,17 @@ class JunkCodeClass extends JunkCodeRandom {
 		//loop through all three kinds of functions and append their code to the classCode
 		foreach(array("private","protected","public") as $classFunctionsIndex) {
 			for($i=count($this->classFunctions[$classFunctionsIndex]);$i>0;$i--)
-			{
+			{	
+				$classCode.="\n#pragma optimize( \"\", off )\n";
 				$classCode.=$this->classFunctions[$classFunctionsIndex][$i]->getFunctionRetType()." ".$this->className."::".$this->classFunctions[$classFunctionsIndex][$i]->getFunctionName()."(".$this->classFunctions[$classFunctionsIndex][$i]->getFunctionArgsAsString().") {"."\n";
 				$classCode.=$this->classFunctions[$classFunctionsIndex][$i]->getFunctionCode();
-				$classCode.="}\n\n";
+				$classCode.="}";	
+				$classCode.="\n#pragma optimize( \"\", on )\n";
 			}
 		}
 		
 		//Constructor code
+		$classCode.="\n#pragma optimize( \"\", off )\n";
 		$classCode.=$this->className."::".$this->className."() {\n";
 		
 		foreach(array("public","protected","private") as $classIndexKey) {
@@ -186,8 +190,10 @@ class JunkCodeClass extends JunkCodeRandom {
 			}
 		}
 		
-		$classCode.="}\n\n";
+		$classCode.="}\n";
 		
+		$classCode.="#pragma optimize( \"\", on )\n";
+
 		return $classCode;
 }
 	

@@ -10,11 +10,11 @@ class JunkCodeFunction extends JunkCodeRandom{
 	private $classFunctionArgs= array();
 	private $classFunctionVariables=array();
 	
-	const RET_INT = 'int';
-	const RET_BOOL = 'bool';
-	const RET_DOUBLE = 'double';
-	const RET_STRING = 'string';
-	const RET_VOID = 'void';
+	const RET_INT = '__forceinline int';
+	const RET_BOOL = '__forceinline bool';
+	const RET_DOUBLE = '__forceinline double';
+	const RET_STRING = '__forceinline string';
+	const RET_VOID = '__forceinline void';
 	
 	
 	/**
@@ -145,6 +145,7 @@ class JunkCodeFunction extends JunkCodeRandom{
 			}
 			
 			$randVar=$this->randomInteger(0, count($this->classFunctionVariables)-1)+1;
+			$randVar2=$this->randomInteger(0, count($this->classFunctionVariables)-1)+1;
 			$condition='';
 			
 			switch($this->randomInteger(0, 1)) 
@@ -153,12 +154,21 @@ class JunkCodeFunction extends JunkCodeRandom{
 						$condition='==';
 					break;
 				case 1:
-						$condition='!=';
-					break;
+						$condition='==';
+						break;
+							// case 2:
+						// $condition='<=';
+								// break;
+								// case 3:
+						// $condition='>';
+						// break;
+						// case 4:
+						// $condition='<';
+					// break;
 			}
 			
 			//Variabletype is string
-			if($this->classFunctionVariables[$randVar]->getVariableType()=='string') {
+			if($this->classFunctionVariables[$randVar]->getVariableType()=='volatile string') {
 				$functionCode.='if (string('.$this->classFunctionVariables[$randVar]->getVariableValue().') '.$condition.' string('.$this->classFunctionVariables[$randVar]->getVariableValue().')) {'."\n";
 			
 			} else { //variabletype is not a string
@@ -167,9 +177,9 @@ class JunkCodeFunction extends JunkCodeRandom{
 			
 			$forloopvar= $this->randomString($this->randomInteger(2, 10));
 			
-			$functionCode.='int '.$forloopvar.';'."\n";
+			$functionCode.='volatile int '.$forloopvar.';'."\n";
 			$functionCode.='for ('.$forloopvar.'='.$this->randomInteger(0, 100).'; '.$forloopvar.' > 0; '.$forloopvar.'--) {'."\n";
-				$functionCode.='continue;';
+				$functionCode.='global_increment++;';
 			$functionCode.="\n} \n";
 			
 			$functionCode.="}\n";
@@ -207,6 +217,7 @@ class JunkCodeFunction extends JunkCodeRandom{
 			
 		}
 		$functionCode.=$retstring;
+	
 		$functionCode.="\n";
 		return $functionCode;
 	}
@@ -216,7 +227,7 @@ class JunkCodeFunction extends JunkCodeRandom{
 	 * @return string - code of the function.
 	 */
 	public function getFunctionPrototype() {
-		return $this->getFunctionRetType()." ".$this->getFunctionName()."(".$this->getFunctionArgsAsString().");";
+		return "static ".$this->getFunctionRetType()." ".$this->getFunctionName()."(".$this->getFunctionArgsAsString().");";
 	}
 }
 
