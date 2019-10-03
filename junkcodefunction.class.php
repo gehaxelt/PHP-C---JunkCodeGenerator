@@ -10,11 +10,11 @@ class JunkCodeFunction extends JunkCodeRandom{
 	private $classFunctionArgs= array();
 	private $classFunctionVariables=array();
 	
-	const RET_INT = '__forceinline int';
-	const RET_BOOL = '__forceinline bool';
-	const RET_DOUBLE = '__forceinline double';
-	const RET_STRING = '__forceinline string';
-	const RET_VOID = '__forceinline void';
+	const RET_INT = 'int';
+	const RET_BOOL = 'bool';
+	const RET_DOUBLE = 'double';
+	const RET_STRING = 'string';
+	const RET_VOID = 'void';
 	
 	
 	/**
